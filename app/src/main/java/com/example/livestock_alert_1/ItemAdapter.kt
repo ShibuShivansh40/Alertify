@@ -1,6 +1,7 @@
 package com.example.livestock_alert_1
 
 import android.annotation.SuppressLint
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +35,8 @@ class ItemAdapter(private var items: List<Item>) : RecyclerView.Adapter<ItemAdap
     }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+//        "http://4945-43-230-198-50.ngrok-free.app/image/" -> URL for API
+        private val webAPIUrl: String = "http://4945-43-230-198-50.ngrok-free.app/images/"
         private val imageView: ImageView = itemView.findViewById(R.id.imageId)
         @SuppressLint("ResourceType")
         fun bind(item: Item) {
@@ -44,7 +46,8 @@ class ItemAdapter(private var items: List<Item>) : RecyclerView.Adapter<ItemAdap
 //            itemView.findViewById<TextView>(R.id.imageUrl_view).text = item.imageUrl
 //            Glide.with().load(ItemViewHolder.imageUrl).into(holder.newsImage)
 //            Glide.with(itemView).load(item.imageUrl).placeholder(R.id.image_view).into(itemView as LinearLayout)
-            Picasso.get().load(item.imageUrl).into(imageView)
+            Picasso.get().load(webAPIUrl+item.imageUrl).into(imageView)
+            Log.d("ImageUrl" , webAPIUrl+item.imageUrl)
             itemView.findViewById<TextView>(R.id.date_view).text = item.date.toString()
 
         }

@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://e850-43-230-198-50.ngrok-free.app/all/")
+            .baseUrl("http://4945-43-230-198-50.ngrok-free.app/all/")
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .build()
@@ -56,7 +56,7 @@ class MainActivity : AppCompatActivity() {
     private val apiRunnable = object : Runnable {
         override fun run() {
             fetchDataFromApi()
-            handler.postDelayed(this, 10000) // Schedule the next API call after 10 seconds
+            handler.postDelayed(this, 60*10000) // Schedule the next API call after 10 seconds
         }
     }
 
