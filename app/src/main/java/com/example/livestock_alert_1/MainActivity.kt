@@ -14,18 +14,20 @@ import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
-import kotlin.math.log
 
+public lateinit var URL_Captured : String
 class MainActivity : AppCompatActivity() {
     private lateinit var handler: Handler
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ItemAdapter
     private lateinit var apiService: ApiService
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        URL_Captured = intent.getStringExtra("URL").toString()
 
         handler = Handler(Looper.getMainLooper())
         recyclerView = findViewById<RecyclerView>(R.id.recylcer_view)
@@ -34,7 +36,8 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://4945-43-230-198-50.ngrok-free.app/all/")
+            .baseUrl("${URL_Captured}all/")
+//            .baseUrl("http://4945-43-230-198-50.ngrok-free.app/all/")
             .addConverterFactory(ScalarsConverterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
             .build()
@@ -63,7 +66,7 @@ class MainActivity : AppCompatActivity() {
     private fun fetchDataFromApi() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val items = apiService.getItems()
+                val items = apiService.getItems("${URL_Captured}all/")
                 adapter.updateData(items)
             } catch (e: Exception) {
                 e.printStackTrace()

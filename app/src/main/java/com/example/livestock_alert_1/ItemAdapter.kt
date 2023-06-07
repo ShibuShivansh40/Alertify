@@ -35,8 +35,8 @@ class ItemAdapter(private var items: List<Item>) : RecyclerView.Adapter<ItemAdap
     }
 
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        "http://4945-43-230-198-50.ngrok-free.app/image/" -> URL for API
-        private val webAPIUrl: String = "http://4945-43-230-198-50.ngrok-free.app/images/"
+        private val webAPIUrl: String = "${URL_Captured}images/"
+//        private val webAPIUrl: String = "http://4945-43-230-198-50.ngrok-free.app/images/"
         private val imageView: ImageView = itemView.findViewById(R.id.imageId)
         @SuppressLint("ResourceType")
         fun bind(item: Item) {
