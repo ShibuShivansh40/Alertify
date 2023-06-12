@@ -8,6 +8,7 @@
 
 
     <application
+        android:enableOnBackInvokedCallback="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -16,7 +17,8 @@
         android:roundIcon="@drawable/_433_1"
         android:supportsRtl="true"
         android:theme="@style/Theme.LiveStock_Alert_1"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:targetApi="tiramisu">
         <activity
             android:name=".URL_Activity"
             android:exported="true">
@@ -35,7 +37,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".MyBackgroundService" />
+<!--        <service android:name=".MyBackgroundService" />-->
     </application>
 
 </manifest>
