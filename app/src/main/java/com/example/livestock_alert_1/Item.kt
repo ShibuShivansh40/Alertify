@@ -7,5 +7,6 @@ data class Item(
     val location: String,
     val userType : String,
     val imageUrl : String,
+    val notification : String,
     val date : Date
 )
