@@ -55,6 +55,8 @@ class ItemAdapter(private val context: Context, private var items: List<Item>) :
         fun bind(item: Item) {
             itemView.findViewById<TextView>(R.id.location_view).text = item.location
             itemView.findViewById<TextView>(R.id.userType_view).text = item.userType
+            itemView.findViewById<TextView>(R.id.notification_view).text = item.notification
+
             Picasso.get().load(webAPIUrl+item.imageUrl).into(imageView)
             Log.d("ImageUrl" , webAPIUrl+item.imageUrl)
             itemView.findViewById<TextView>(R.id.date_view).text = item.date.toString()
