@@ -45,7 +45,7 @@
             android:id="@+id/url_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="https://www.example.com"
+            android:hint="https://www.example.com"
             android:textSize="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

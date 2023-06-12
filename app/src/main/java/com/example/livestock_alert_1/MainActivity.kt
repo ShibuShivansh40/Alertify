@@ -1,10 +1,16 @@
 package com.example.livestock_alert_1
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
@@ -31,7 +37,8 @@ class MainActivity : AppCompatActivity() {
 
         handler = Handler(Looper.getMainLooper())
         recyclerView = findViewById<RecyclerView>(R.id.recylcer_view)
-        adapter = ItemAdapter(emptyList())
+//        adapter = ItemAdapter(emptyList())
+        adapter = ItemAdapter(this, emptyList())
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -59,7 +66,7 @@ class MainActivity : AppCompatActivity() {
     private val apiRunnable = object : Runnable {
         override fun run() {
             fetchDataFromApi()
-            handler.postDelayed(this, 60*10000) // Schedule the next API call after 10 seconds
+            handler.postDelayed(this, 10000) // Schedule the next API call after 10 seconds
         }
     }
 
@@ -73,4 +80,46 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+}
+//fun pushNotification() {
+//    val nm : NotificationManager = ContextCompat.getSystemService(AppCompatActivity.NOTIFICATION_SERVICE) as NotificationManager
+//    nm.createNotificationChannel(NotificationChannel("first", "default", NotificationManager.IMPORTANCE_DEFAULT))
+//
+//    val simpleNotification = NotificationCompat.Builder(this,"first").setContentTitle("LIVESTOCK ALERT").setSmallIcon(R.drawable.notification_icon).setPriority(NotificationCompat.PRIORITY_DEFAULT).build()
+//    nm.notify(1,simpleNotification)
+//
+//}
+
+fun showNotification(context: Context) {
+//    val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+//    val channelId = "5" // Unique ID for the notification channel
+//
+//    val channel = NotificationChannel(
+//        channelId,
+//        "My Channel",
+//        NotificationManager.IMPORTANCE_DEFAULT
+//    )
+//    notificationManager.createNotificationChannel(channel)
+//
+//    val notificationBuilder = NotificationCompat.Builder(context, channelId)
+//        .setContentTitle("Response Change Detected")
+//        .setContentText("There is a change in the response.")
+//        .setSmallIcon(R.drawable.notification_icon)
+//        .setAutoCancel(true)
+//        .build()
+//
+//    val notificationId = 1 // Unique ID for the notification
+//
+//    notificationManager.notify(1,notificationBuilder)
+    val nm : NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    nm.createNotificationChannel(NotificationChannel("first", "default", NotificationManager.IMPORTANCE_DEFAULT))
+    val simpleNotification = NotificationCompat.Builder(context, "first")
+        .setContentTitle("TITLE")
+        .setContentText("CONTENT")
+        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        .build()
+
+    nm.notify(1,simpleNotification)
 }
