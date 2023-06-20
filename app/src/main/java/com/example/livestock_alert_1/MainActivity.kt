@@ -2,6 +2,8 @@ package com.example.livestock_alert_1
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.TaskStackBuilder
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -25,6 +27,8 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 
 public lateinit var URL_Captured : String
 lateinit var apiService: ApiService
+
+
 class MainActivity : AppCompatActivity() {
     private lateinit var handler: Handler
     private lateinit var recyclerView: RecyclerView
@@ -86,13 +90,23 @@ class MainActivity : AppCompatActivity() {
 }
 fun showNotification(context: Context) {
 
+    val resultIntent = Intent(context, MainActivity::class.java)
+//    resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+//    val resultPendingIntent: PendingIntent? = TaskStackBuilder.create(context).run {
+//        addNextIntentWithParentStack(resultIntent)
+//        getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE) }
+
+    val resultPendingIntent = PendingIntent.getActivity(context,0,resultIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+
     val nm : NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     nm.createNotificationChannel(NotificationChannel("first", "default", NotificationManager.IMPORTANCE_DEFAULT))
     val simpleNotification = NotificationCompat.Builder(context, "first")
         .setContentTitle("LIVESTOCK ALERT")
+        .setContentIntent(resultPendingIntent)
         .setContentText(notification_response)
         .setSmallIcon(R.drawable.notification_icon)
         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        .setAutoCancel(true)
         .build()
 
     nm.notify(1,simpleNotification)
