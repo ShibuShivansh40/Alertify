@@ -9,8 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/imageConstraint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="180dp"
         android:background="@drawable/rectangle_325"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -18,8 +18,8 @@
         app:layout_constraintEnd_toEndOf="parent">
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="319dp"
-            android:layout_height="188dp"
+            android:layout_width="250dp"
+            android:layout_height="190dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -38,7 +38,8 @@
         app:layout_constraintHorizontal_bias="0.272"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageConstraint"
-        app:layout_constraintVertical_bias="0.476">
+        app:layout_constraintVertical_bias="0.476"
+        android:layout_marginLeft="10dp">
         <LinearLayout
             android:id="@+id/userType_LL"
             android:layout_width="wrap_content"
@@ -64,7 +65,7 @@
                     android:fontFamily="@font/pontano_family"
                     android:text="User Type"
                     android:textColor="#CECBC3"
-                    android:textSize="18dp" />
+                    android:textSize="16dp" />
                 <TextView
                     android:id="@+id/userType_view"
                     android:layout_width="wrap_content"
@@ -72,7 +73,7 @@
                     android:fontFamily="@font/pontano_family"
                     android:text="Admin"
                     android:textColor="#728B8A"
-                    android:textSize="18dp" />
+                    android:textSize="16dp" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -100,7 +101,7 @@
                     android:fontFamily="@font/pontano_family"
                     android:text="Location"
                     android:textColor="#CECBC3"
-                    android:textSize="18dp" />
+                    android:textSize="16dp" />
                 <TextView
                     android:id="@+id/location_view"
                     android:layout_width="wrap_content"
@@ -108,7 +109,7 @@
                     android:fontFamily="@font/pontano_family"
                     android:text="ITS NewGen"
                     android:textColor="#728B8A"
-                    android:textSize="18dp" />
+                    android:textSize="16dp" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -136,7 +137,7 @@
                     android:fontFamily="@font/pontano_family"
                     android:text="Date &amp; Time"
                     android:textColor="#CECBC3"
-                    android:textSize="18dp" />
+                    android:textSize="16dp" />
                 <TextView
                     android:id="@+id/date_view"
                     android:layout_width="wrap_content"
@@ -144,7 +145,7 @@
                     android:fontFamily="@font/pontano_family"
                     android:text="14-08-2023 GMT 5:30+"
                     android:textColor="#728B8A"
-                    android:textSize="18dp" />
+                    android:textSize="16dp" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
@@ -174,7 +175,7 @@
                     android:fontFamily="@font/pontano_family"
                     android:text="Notification"
                     android:textColor="#CECBC3"
-                    android:textSize="18dp" />
+                    android:textSize="16dp" />
 
                 <TextView
                     android:id="@+id/notification_view"
@@ -183,7 +184,7 @@
                     android:fontFamily="@font/pontano_family"
                     android:text="accuracy with 97.7%"
                     android:textColor="#728B8A"
-                    android:textSize="18dp" />
+                    android:textSize="16dp" />
             </LinearLayout>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
