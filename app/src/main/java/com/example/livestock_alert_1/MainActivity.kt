@@ -28,23 +28,18 @@ import retrofit2.converter.scalars.ScalarsConverterFactory
 public lateinit var URL_Captured : String
 lateinit var apiService: ApiService
 
-
 class MainActivity : AppCompatActivity() {
     private lateinit var handler: Handler
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ItemAdapter
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         URL_Captured = intent.getStringExtra("URL").toString()
-
         handler = Handler(Looper.getMainLooper())
         recyclerView = findViewById<RecyclerView>(R.id.recylcer_view)
-//        adapter = ItemAdapter(emptyList())
         adapter = ItemAdapter(this, emptyList())
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -91,23 +86,16 @@ class MainActivity : AppCompatActivity() {
 fun showNotification(context: Context) {
 
     val resultIntent = Intent(context, MainActivity::class.java)
-//    resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-//    val resultPendingIntent: PendingIntent? = TaskStackBuilder.create(context).run {
-//        addNextIntentWithParentStack(resultIntent)
-//        getPendingIntent(1, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE) }
-
     val resultPendingIntent = PendingIntent.getActivity(context,0,resultIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
-
     val nm : NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     nm.createNotificationChannel(NotificationChannel("first", "default", NotificationManager.IMPORTANCE_DEFAULT))
     val simpleNotification = NotificationCompat.Builder(context, "first")
         .setContentTitle("LIVESTOCK ALERT")
         .setContentIntent(resultPendingIntent)
         .setContentText(notification_response)
-        .setSmallIcon(R.drawable.notification_icon)
+        .setSmallIcon(R.drawable.notification_icon_)
         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
         .setAutoCancel(true)
         .build()
-
     nm.notify(1,simpleNotification)
 }
