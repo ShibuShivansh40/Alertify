@@ -90,7 +90,7 @@ fun showNotification(context: Context) {
     val nm : NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
     nm.createNotificationChannel(NotificationChannel("first", "default", NotificationManager.IMPORTANCE_DEFAULT))
     val simpleNotification = NotificationCompat.Builder(context, "first")
-        .setContentTitle("LIVESTOCK ALERT")
+        .setContentTitle("N.A.T.E. Alert")
         .setContentIntent(resultPendingIntent)
         .setContentText(notification_response)
         .setSmallIcon(R.drawable.notification_icon_)
