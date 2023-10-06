@@ -10,3 +10,7 @@ This application is curated to help people track the livestock sightings in the 
 <img src="https://upload.wikimedia.org/wikipedia/commons/3/36/Groovy-logo.svg" alt="Groovy" height="40"/>
 </p>
 
+# Preparation Period
+<p>1 Month, April 2023</p>
+
+
