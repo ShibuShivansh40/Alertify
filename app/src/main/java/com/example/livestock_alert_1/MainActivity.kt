@@ -1,10 +1,20 @@
 package com.example.livestock_alert_1
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.TaskStackBuilder
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
+import androidx.core.app.NotificationCompat
+import androidx.core.app.ServiceCompat.START_STICKY
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.GsonBuilder
@@ -16,22 +26,21 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 public lateinit var URL_Captured : String
+lateinit var apiService: ApiService
+
 class MainActivity : AppCompatActivity() {
     private lateinit var handler: Handler
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: ItemAdapter
-    private lateinit var apiService: ApiService
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         URL_Captured = intent.getStringExtra("URL").toString()
-
         handler = Handler(Looper.getMainLooper())
         recyclerView = findViewById<RecyclerView>(R.id.recylcer_view)
-        adapter = ItemAdapter(emptyList())
+        adapter = ItemAdapter(this, emptyList())
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -53,18 +62,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        handler.removeCallbacks(apiRunnable) // Stop fetching data when the activity pauses
+//        handler.removeCallbacks(apiRunnable) // Stop fetching data when the activity pauses
     }
 
     private val apiRunnable = object : Runnable {
         override fun run() {
             fetchDataFromApi()
-            handler.postDelayed(this, 60*10000) // Schedule the next API call after 10 seconds
+            handler.postDelayed(this, 10000) // Schedule the next API call after 10 seconds
         }
     }
-
     private fun fetchDataFromApi() {
-        CoroutineScope(Dispatchers.Main).launch {
+        CoroutineScope(Dispatchers.IO).launch {
             try {
                 val items = apiService.getItems("${URL_Captured}all/")
                 adapter.updateData(items)
@@ -73,4 +81,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+}
+fun showNotification(context: Context) {
+
+    val resultIntent = Intent(context, MainActivity::class.java)
+    val resultPendingIntent = PendingIntent.getActivity(context,0,resultIntent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+    val nm : NotificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    nm.createNotificationChannel(NotificationChannel("first", "default", NotificationManager.IMPORTANCE_DEFAULT))
+    val simpleNotification = NotificationCompat.Builder(context, "first")
+        .setContentTitle("N.A.T.E. Alert")
+        .setContentIntent(resultPendingIntent)
+        .setContentText(notification_response)
+        .setSmallIcon(R.drawable.notification_icon_)
+        .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+        .setAutoCancel(true)
+        .build()
+    nm.notify(1,simpleNotification)
 }
